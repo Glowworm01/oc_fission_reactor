@@ -3,17 +3,17 @@ local term = require("term")
 local nc = component.nc_fission_reactor
 
 -- CONFIG --
-local min_energy = 10
-local max_energy = 99
+local min_energy_cutoff = 10
+local max_energy_cutoff = 99
 local heat_limit = 50
 
 
 local calcStartEnergyCutoff = function()
   local current_energy = nc.getEnergyStored()
-  if current_energy >= min_energy then
-    return min_energy
+  if current_energy >= min_energy_cutoff then
+    return min_energy_cutoff
   else
-    return max_energy
+    return max_energy_cutoff
   end
 end
 
@@ -43,10 +43,10 @@ while true do
 
   if energy_perc >= energy_cutoff then
       nc.deactivate()
-      energy_cutoff = min_energy
+      energy_cutoff = min_energy_cutoff
     else
       nc.activate()
-      energy_cutoff = max_energy
+      energy_cutoff = max_energy_cutoff
   end
 
   local heat_level = nc.getHeatLevel()
